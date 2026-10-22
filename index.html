@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dubai Booker · Premium gateway</title>
+  <!-- Bootstrap 5 + Tailwind (via CDN) + Font Awesome + Google Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Elegant typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* premium base + custom overrides */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0e14;
+      background-image: radial-gradient(circle at 10% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 30%),
+                        radial-gradient(circle at 90% 70%, rgba(212, 175, 55, 0.08) 0%, transparent 35%);
+      color: #f5f0e7;
+    }
+    h1, h2, h3, .logo-text {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.02em;
+    }
+    .logo-text {
+      background: linear-gradient(135deg, #e9d7a5, #c9a84c, #f5e7b2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    /* premium gradient buttons – modern, rounded, high-ticket */
+    .btn-gold {
+      background: linear-gradient(145deg, #d4af37, #b38f2c, #e9d7a5);
+      background-size: 200% 200%;
+      border: none;
+      color: #0b0e14;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: 50px;
+      padding: 0.85rem 2.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px -8px rgba(212, 175, 55, 0.5);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(145deg, #e9d7a5, #d4af37, #b38f2c);
+      color: #0b0e14;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 35px -8px rgba(212, 175, 55, 0.7);
+    }
+    .btn-gold i {
+      margin-right: 8px;
+    }
+    /* premium card */
+    .card-premium {
+      background: rgba(20, 25, 35, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 28px;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.7);
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-premium::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #d4af37, #f5e7b2, #d4af37, transparent);
+      opacity: 0.7;
+    }
+    .card-premium:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 55, 0.65);
+      box-shadow: 0 30px 45px -20px #c9a84c40;
+    }
+    .card-icon {
+      font-size: 2.6rem;
+      background: linear-gradient(135deg, #e9d7a5, #c9a84c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.8rem;
+    }
+    /* whatsapp static floating */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: linear-gradient(145deg, #25D366, #128C7E);
+      color: white;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+      z-index: 1050;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+      text-decoration: none;
+    }
+    .whatsapp-float:hover {
+      color: white;
+      transform: scale(1.1) rotate(5deg);
+      background: linear-gradient(145deg, #128C7E, #25D366);
+      box-shadow: 0 18px 38px rgba(37, 211, 102, 0.8);
+    }
+    /* footer icons */
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      color: #d4af37;
+      font-size: 1.3rem;
+      margin-right: 12px;
+      transition: 0.3s;
+      text-decoration: none;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .social-icon:hover {
+      background: #d4af37;
+      color: #0b0e14;
+      transform: translateY(-3px);
+      border-color: #d4af37;
+    }
+    .footer-link {
+      color: #b9b1a0;
+      text-decoration: none;
+      transition: 0.2s;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+      display: inline-block;
+    }
+    .footer-link:hover {
+      color: #e9d7a5;
+      transform: translateX(4px);
+    }
+    .form-control-premium {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 18px;
+      padding: 1rem 1.4rem;
+      color: #f0eae0;
+      font-weight: 400;
+    }
+    .form-control-premium:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #d4af37;
+      box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+      color: white;
+    }
+    .form-control-premium::placeholder {
+      color: #a89f8f;
+      font-weight: 300;
+    }
+    /* hero glow */
+    .hero-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+      padding: 2rem 0 1rem 0;
+    }
+    /* fine tuning */
+    .premium-badge {
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 50px;
+      padding: 0.3rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #d4af37;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    .text-gold {
+      color: #d4af37;
+    }
+    .bg-dark-premium {
+      background-color: #0f131c;
+    }
+    .border-gold-subtle {
+      border-color: rgba(212, 175, 55, 0.2) !important;
+    }
+    a, .btn {
+      cursor: pointer;
+    }
+    /* ensure tailwind + bootstrap harmony */
+    .card-body {
+      padding: 2rem 1.5rem;
+    }
+    @media (max-width: 576px) {
+      .btn-gold {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.8rem;
+      }
+      .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        font-size: 1.8rem;
+        bottom: 20px;
+        right: 20px;
+      }
+      .card-premium .card-body {
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- Header: Logo + CTA "explore best" -->
+  <header class="container pt-4 pb-2">
+    <div class="d-flex flex-wrap align-items-center justify-content-between">
+      <!-- Logo -->
+      <a href="/" class="text-decoration-none d-flex align-items-center">
+        <span class="logo-text fs-2 fw-bold">Dubai Booker</span>
+        <span class="badge premium-badge ms-3 d-none d-sm-inline">ELITE</span>
+      </a>
+      <!-- CTA -->
+      <a href="https://bookings.dubaibooker.com/" class="btn btn-gold mt-2 mt-sm-0">
+        <i class="fas fa-compass"></i> Explore Best
+      </a>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-grow-1">
+
+    <!-- Hero / welcome -->
+    <section class="container hero-glow text-center py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <span class="premium-badge mb-3">WELCOME TO DUBAI</span>
+          <h1 class="display-3 fw-bold mt-2 mb-4" style="color: #f5e7b2;">
+            Where luxury meets <span class="text-gold">effortless booking</span>
+          </h1>
+          <p class="lead mb-4 mx-auto" style="max-width: 680px; color: #cfc7b8;">
+            Dubai Booker is your premium gateway to the city’s finest stays, experiences, and drives.
+            One shortcut — infinite possibilities.
+          </p>
+          <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="https://bookings.dubaibooker.com/" class="btn btn-gold px-5">
+              <i class="fas fa-crown"></i> Start exploring
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Feature cards (best hotels, villas, activities, rent a car) -->
+    <section class="container py-4 py-lg-5">
+      <div class="row g-4 justify-content-center">
+        <!-- Best Hotels -->
+        <div class="col-md-6 col-lg-3">
+          <a href="https://bookings.dubaibooker.com/" class="text-decoration-none">
+            <div class="card-premium h-100">
+              <div class="card-body text-center d-flex flex-column align-items-center">
+                <div class="card-icon"><i class="fas fa-hotel"></i></div>
+                <h3 class="h4 fw-semibold text-light mb-3">Best Hotels</h3>
+                <p class="small text-secondary mb-4">Handpicked 5-star stays, palatial suites & iconic addresses.</p>
+                <span class="btn btn-gold btn-sm px-4 mt-auto">Discover <i class="fas fa-arrow-right ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Luxury Villas -->
+        <div class="col-md-6 col-lg-3">
+          <a href="https://bookings.dubaibooker.com/" class="text-decoration-none">
+            <div class="card-premium h-100">
+              <div class="card-body text-center d-flex flex-column align-items-center">
+                <div class="card-icon"><i class="fas fa-home"></i></div>
+                <h3 class="h4 fw-semibold text-light mb-3">Luxury Villas</h3>
+                <p class="small text-secondary mb-4">Private beachfront mansions & exclusive retreats.</p>
+                <span class="btn btn-gold btn-sm px-4 mt-auto">Discover <i class="fas fa-arrow-right ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Activities -->
+        <div class="col-md-6 col-lg-3">
+          <a href="https://bookings.dubaibooker.com/" class="text-decoration-none">
+            <div class="card-premium h-100">
+              <div class="card-body text-center d-flex flex-column align-items-center">
+                <div class="card-icon"><i class="fas fa-skydiving"></i></div>
+                <h3 class="h4 fw-semibold text-light mb-3">Activities</h3>
+                <p class="small text-secondary mb-4">Desert safaris, yacht tours, sky-high adventures & more.</p>
+                <span class="btn btn-gold btn-sm px-4 mt-auto">Discover <i class="fas fa-arrow-right ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Rent a Car -->
+        <div class="col-md-6 col-lg-3">
+          <a href="https://bookings.dubaibooker.com/" class="text-decoration-none">
+            <div class="card-premium h-100">
+              <div class="card-body text-center d-flex flex-column align-items-center">
+                <div class="card-icon"><i class="fas fa-car"></i></div>
+                <h3 class="h4 fw-semibold text-light mb-3">Rent a Car</h3>
+                <p class="small text-secondary mb-4">Luxury & exotic car rentals with white-glove delivery.</p>
+                <span class="btn btn-gold btn-sm px-4 mt-auto">Discover <i class="fas fa-arrow-right ms-1"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact us – form section, premium style -->
+    <section class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-premium p-4 p-md-5">
+            <div class="text-center mb-4">
+              <span class="premium-badge">CONCIERGE</span>
+              <h2 class="h3 fw-bold mt-2 text-light">Contact us</h2>
+              <p class="text-secondary">Our team will respond within the hour.</p>
+            </div>
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <input type="text" class="form-control form-control-premium" placeholder="Full name" required>
+                </div>
+                <div class="col-md-6">
+                  <input type="email" class="form-control form-control-premium" placeholder="Email address" required>
+                </div>
+                <div class="col-12">
+                  <input type="text" class="form-control form-control-premium" placeholder="Subject (e.g., villa booking)">
+                </div>
+                <div class="col-12">
+                  <textarea class="form-control form-control-premium" rows="4" placeholder="Your message..."></textarea>
+                </div>
+                <div class="col-12 text-center mt-4">
+                  <button type="submit" class="btn btn-gold px-5"><i class="fas fa-paper-plane me-2"></i> Send message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer: Logo, social icons, nav links -->
+  <footer class="bg-dark-premium border-top border-gold-subtle mt-4 pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4">
+        <!-- logo + tagline -->
+        <div class="col-md-4">
+          <span class="logo-text fs-3 fw-bold">Dubai Booker</span>
+          <p class="small text-secondary mt-3" style="max-width: 280px;">
+            The premium shortcut to Dubai's most exclusive stays, drives and experiences.
+          </p>
+          <p class="small text-gold mt-2"><i class="fas fa-globe me-2"></i> bookings.dubaibooker.com</p>
+        </div>
+        <!-- navigation links -->
+        <div class="col-md-4">
+          <h5 class="text-light fw-semibold mb-3" style="font-family: Inter, sans-serif; letter-spacing: 1px;">EXPLORE</h5>
+          <div class="d-flex flex-column">
+            <a href="https://bookings.dubaibooker.com/" class="footer-link"><i class="fas fa-chevron-right me-2 text-gold" style="font-size: 0.7rem;"></i>Best hotels</a>
+            <a href="https://bookings.dubaibooker.com/" class="footer-link"><i class="fas fa-chevron-right me-2 text-gold" style="font-size: 0.7rem;"></i>Luxury villas</a>
+            <a href="https://bookings.dubaibooker.com/" class="footer-link"><i class="fas fa-chevron-right me-2 text-gold" style="font-size: 0.7rem;"></i>Activities</a>
+            <a href="https://bookings.dubaibooker.com/" class="footer-link"><i class="fas fa-chevron-right me-2 text-gold" style="font-size: 0.7rem;"></i>Rent a car</a>
+          </div>
+        </div>
+        <!-- social icons + contact -->
+        <div class="col-md-4">
+          <h5 class="text-light fw-semibold mb-3" style="font-family: Inter, sans-serif; letter-spacing: 1px;">CONNECT</h5>
+          <div class="d-flex mb-3">
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <p class="small text-secondary mb-1"><i class="fas fa-phone-alt me-2 text-gold"></i> +971 4 555 0199</p>
+          <p class="small text-secondary"><i class="fas fa-envelope me-2 text-gold"></i> concierge@dubaibooker.com</p>
+        </div>
+      </div>
+      <hr class="border-gold-subtle my-4">
+      <div class="d-flex flex-wrap justify-content-between small text-secondary">
+        <span>© 2025 Dubai Booker. All rights reserved.</span>
+        <span>
+          <a href="#" class="text-secondary text-decoration-none me-3">Privacy</a>
+          <a href="#" class="text-secondary text-decoration-none">Terms</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Static WhatsApp button -->
+  <a href="https://wa.me/97145550199" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Bootstrap JS (optional but included for completeness) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
